@@ -9,6 +9,12 @@ public class Player : MonoBehaviour
     public Vector2 friction = new Vector2(.1f, 0);
 
     public float speed;
+    
+    public float speedRun;
+
+    private float _currentSpeed;
+
+    private bool _isRunning = false;
 
     public float forceJump;
 
@@ -20,20 +26,31 @@ public class Player : MonoBehaviour
 
     private void Movimentxy()
     {
+        /*if (Input.GetKey(KeyCode.LeftControl))
+            _currentSpeed = speedRun;
+        else
+            _currentSpeed = speed;*/
+
+        //_isRunning = Input.GetKey(KeyCode.LeftControl);
 
         if (Input.GetKey(KeyCode.A))
         {
             //myRigidbody.MovePosition(myRigidbody.position - velocity * Time.deltaTime);
-            myRigidbody.velocity = new Vector2(-speed, myRigidbody.velocity.y);
+           
+            myRigidbody.velocity = new Vector2(Input.GetKey(KeyCode.LeftControl) ? -speedRun  : -speed, myRigidbody.velocity.y);
+            
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
             //myRigidbody.MovePosition(myRigidbody.position + velocity * Time.deltaTime);
-            myRigidbody.velocity = new Vector2(+speed, myRigidbody.velocity.y);
+            //myRigidbody.velocity = new Vector2(_currentSpeed, myRigidbody.velocity.y);
+
+            myRigidbody.velocity = new Vector2(Input.GetKey(KeyCode.LeftControl) ? speedRun : speed, myRigidbody.velocity.y);
+            // ? = Se ele for verdadeiro, usa speedRun, se não, usa speed
         }
 
-        if(myRigidbody.velocity.x > 0)
+        if (myRigidbody.velocity.x > 0)
         {
             myRigidbody.velocity += friction;
         }
