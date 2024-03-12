@@ -21,6 +21,11 @@ public class Player : MonoBehaviour
     public float animationDuration;
     public Ease ease = Ease.OutBack;
 
+    [Header("Animation player")]
+    public string boolRun = "Run_bool";
+    public Animator animator;
+    public float playerSwipeDuration;
+
     private void Update()
     {
         MovimentJump();
@@ -29,10 +34,15 @@ public class Player : MonoBehaviour
 
     private void Movimentxy()
     {
-        /*if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
             _currentSpeed = speedRun;
+            animator.speed = 2;
+        }
         else
-            _currentSpeed = speed;*/
+            _currentSpeed = speed;
+            animator.speed = 1;
+
 
         //_isRunning = Input.GetKey(KeyCode.LeftControl);
 
@@ -40,17 +50,33 @@ public class Player : MonoBehaviour
         {
             //myRigidbody.MovePosition(myRigidbody.position - velocity * Time.deltaTime);
            
-            myRigidbody.velocity = new Vector2(Input.GetKey(KeyCode.LeftControl) ? -speedRun  : -speed, myRigidbody.velocity.y);
+            myRigidbody.velocity = new Vector2(-_currentSpeed, myRigidbody.velocity.y);
+            if(myRigidbody.transform.localScale.x != -1)
+            {
+                myRigidbody.transform.DOScaleX(-1, playerSwipeDuration);
+            }
+            animator.SetBool(boolRun, true);
             
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
             //myRigidbody.MovePosition(myRigidbody.position + velocity * Time.deltaTime);
-            //myRigidbody.velocity = new Vector2(_currentSpeed, myRigidbody.velocity.y);
+            myRigidbody.velocity = new Vector2(_currentSpeed, myRigidbody.velocity.y);
 
-            myRigidbody.velocity = new Vector2(Input.GetKey(KeyCode.LeftControl) ? speedRun : speed, myRigidbody.velocity.y);
+            if (myRigidbody.transform.localScale.x != 1)
+            {
+                myRigidbody.transform.DOScaleX(1, playerSwipeDuration);
+            }
+
+            //myRigidbody.velocity = new Vector2(Input.GetKey(KeyCode.LeftControl) ? speedRun : speed, myRigidbody.velocity.y);
+            animator.SetBool(boolRun, true);
+
             // ? = Se ele for verdadeiro, usa speedRun, se não, usa speed
+        }
+        else
+        {
+            animator.SetBool(boolRun, false);
         }
 
         if (myRigidbody.velocity.x > 0)
