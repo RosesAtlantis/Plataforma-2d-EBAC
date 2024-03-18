@@ -19,7 +19,6 @@ public class ItenCollectableBase : MonoBehaviour
 
     protected virtual void Collect()
     {
-        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         gameObject.SetActive(false);
         OnCollect();
     }

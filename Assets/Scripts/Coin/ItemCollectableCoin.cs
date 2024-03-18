@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ItemCollectableCoin : ItenCollectableBase
 {
-    // Start is called before the first frame update
     protected override void OnCollect()
     {
         base.OnCollect();
