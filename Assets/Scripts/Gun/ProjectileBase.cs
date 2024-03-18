@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ProjectileBase : MonoBehaviour
 {
     public Vector3 direction;
@@ -10,6 +9,8 @@ public class ProjectileBase : MonoBehaviour
 
 
     public float side = 1;
+
+    public int damageAmount;
 
     private void Awake()
     {
@@ -24,7 +25,12 @@ public class ProjectileBase : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var enemy = collision.transform.GetComponent<EnemyBase>();
-        if(collision.transform)
+        
+        if(enemy != null)
+        {
+            enemy.Damage(damageAmount);
+            Destroy(gameObject);
+        }
     }
 
 

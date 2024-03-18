@@ -167,3 +167,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 15, y: 0, z: 0}
   timeToDestroy: 2
+  side: 1
+  damageAmount: 3
