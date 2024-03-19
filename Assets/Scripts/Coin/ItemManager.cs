@@ -24,6 +24,7 @@ public class ItemManager : Singleton<ItemManager>
     public void addCoins(int amount = 1)
     {
         coins += amount;
+        UpdateUI();
     }
     
     private void UpdateUI()
